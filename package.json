@@ -1,0 +1,15 @@
+{
+  "name": "lambda_s3_check",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-datetime": "^2.0.6",
+    "node-timezone": "0.0.5"
+  }
+}

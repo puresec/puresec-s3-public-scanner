@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Send a daily report over email, with all S3 buckets belonging to the account, which have any kind of 'public' permissions set.
+          
+Resources:
+  RunS3ScannerLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handler.runScan
+      Runtime: nodejs6.10
+      Timeout: 180
+      CodeUri: .
+      Environment:
+        Variables:
+          DESTINATION_EMAIL: ENTER_EMAIL_ADDRESS
+      Events:
+        ScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 day)
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetBucketAcl
+                - s3:ListAllMyBuckets
+                - ses:SendEmail
+              Resource: '*'
